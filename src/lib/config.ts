@@ -17,7 +17,8 @@ const config = reactive<IConfig>({
     TEXTAREA: null,
     TIMEPICKER: null,
     UPLOAD: null,
-    WYSIWYG: null
+    WYSIWYG: null,
+    TABLE: null
   }
 })
 

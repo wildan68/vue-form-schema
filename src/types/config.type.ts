@@ -16,7 +16,12 @@ export type ISchema = {
   | "WYSIWYG"
   | "TEXT"
   | "NUMBER"
-  props: Record<string, any>
+  | "TABLE"
+  props?: Record<string, any>
+  slots?: any
+  config?: {
+    key: string
+  }
   children?: ISchema[]
 }
 

@@ -1,5 +1,5 @@
-import { reactive as s, h as f } from "vue";
-const e = s({
+import { reactive as C, h as p } from "vue";
+const s = C({
   components: {
     BUTTON: null,
     CHECKBOX: null,
@@ -14,32 +14,47 @@ const e = s({
     TEXTAREA: null,
     TIMEPICKER: null,
     UPLOAD: null,
-    WYSIWYG: null
+    WYSIWYG: null,
+    TABLE: null
   }
-}), c = () => ({
-  setConfig: ({ components: n }) => e.components = { ...e.components, ...n },
-  config: e
-}), m = () => {
-  const { config: l } = c(), n = (o) => {
-    var u;
-    const t = l.components[o.component];
-    return t ? f(
-      t,
-      o.props || {},
-      (u = o.children) == null ? void 0 : u.map((p) => n(p))
-    ) : (console.error(`Component for type "${o.component}" not found.`), null);
+}), E = () => ({
+  setConfig: ({ components: o }) => s.components = { ...s.components, ...o },
+  config: s
+}), g = () => {
+  const { config: t } = E(), o = ({ schema: n, data: l, onUpdate: e }) => {
+    var i;
+    const u = t.components[n.component];
+    return p(
+      u ?? "div",
+      (() => {
+        const r = n.config;
+        if (r && l) {
+          const f = r.key, T = (m) => {
+            if (e)
+              return e(f, m);
+          };
+          return { ...n.props, modelValue: l[f], "onUpdate:modelValue": T };
+        }
+        return n.props;
+      })() || {},
+      n.slots ? n.slots : (i = n.children) == null ? void 0 : i.map((r) => o({ schema: r, data: l, onUpdate: e }))
+    );
   };
   return {
-    setSchema: (o) => Array.isArray(o) ? o.map((t) => n(t)) : n(o)
+    setSchema: ({ schema: n, data: l, onUpdate: e }) => Array.isArray(n) ? p(
+      "div",
+      {},
+      n.map((u) => o({ schema: u, data: l, onUpdate: e }))
+    ) : o({ schema: n, data: l, onUpdate: e })
   };
-}, E = {
-  install(l, n) {
-    const { setConfig: r } = c();
-    n && r(n);
+}, I = {
+  install(t, o) {
+    const { setConfig: c } = E();
+    o && c(o);
   }
 };
 export {
-  E as default,
-  c as useConfig,
-  m as useRender
+  I as default,
+  E as useConfig,
+  g as useRender
 };

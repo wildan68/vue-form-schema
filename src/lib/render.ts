@@ -1,5 +1,5 @@
 import { useConfig } from './config'
-import { h } from 'vue'
+import { h, ref } from 'vue'
 import type { ISchema } from '../types/config.type'
 import { IFunction } from '../types/function.type'
 
@@ -7,29 +7,53 @@ import { IFunction } from '../types/function.type'
  * Render schema.
  * @param schemas
  */
-export const useRender: IFunction<ISchema[]> = () => {
+export const useRender = () => {
   const { config } = useConfig()
 
-  const renderSchema: IFunction<ISchema> = (schemas) => {
-    const component = config.components[schemas.component]
-    if (!component) {
-      console.error(`Component for type "${schemas.component}" not found.`);
-      return null;
+  const renderSchema: IFunction<{
+    schema: ISchema
+    data?: Record<string, any>
+    onUpdate?: (key: string, value: any) => void
+  }> = ({ schema, data, onUpdate }) => {
+    const component = config.components[schema.component]
+
+    const defineProps = () => {
+      const config = schema.config
+      if (config && data) {
+        const key = config.key
+        
+        const updateModelHandler = (value: any) => {
+          if (onUpdate)
+            return onUpdate(key, value);
+        }
+
+        return { ...schema.props, modelValue: data[key], 'onUpdate:modelValue': updateModelHandler } 
+      }
+
+      return schema.props
     }
 
     return h(
-      component,
-      schemas.props || {},
-      schemas.children?.map((child) => renderSchema(child))
+      component ?? 'div',
+      defineProps() || {},
+      schema.slots ? schema.slots : schema.children?.map((child) => renderSchema({ schema: child, data, onUpdate }))
     )
   }
 
-  const setSchema: IFunction<ISchema | ISchema[]> = (schemas) => {
-    if (Array.isArray(schemas)) {
-      return schemas.map((schema) => renderSchema(schema))
+  const setSchema: IFunction<{
+    schema: ISchema | ISchema[],
+    data?: Record<string, any>
+    onUpdate?: (key: string, value: any) => void
+  }> = ({ schema, data, onUpdate }) => {
+    if (Array.isArray(schema)) {
+      return h(
+        'div',
+        { },
+        schema.map((schema) => renderSchema({ schema, data, onUpdate }))
+      )
     }
 
-    return renderSchema(schemas)
+    return renderSchema({ schema, data, onUpdate })
   }
   
   return {
