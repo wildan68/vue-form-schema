@@ -1,6 +1,6 @@
 import { App, Plugin } from 'vue';
 import { useConfig } from './lib/config';
-import { IConfig, ISchema } from './types/config.type';
+import type { IConfig, ISchema } from './types/config.type';
 import { useRender } from './lib/render';
 
 const VueFormSchema: Plugin = {
