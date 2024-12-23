@@ -1,6 +1,6 @@
 {
   "name": "@wildanrizky/vue-form-schema",
-  "version": "1.0.5-beta",
+  "version": "1.0.4-beta",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/types/index.d.ts",
