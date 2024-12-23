@@ -1,44 +1,44 @@
-import { reactive as y, h as l } from "vue";
-const i = y({
+import { reactive as a, h as l } from "vue";
+const i = a({
   components: {}
 }), m = () => ({
   setConfig: ({ components: o }) => i.components = { ...i.components, ...o },
   config: i
-}), a = () => {
-  const { config: s } = m(), o = ({ schema: n, data: e, onUpdate: r }) => {
-    var p;
-    const c = s.components[n.component];
-    return l(
-      c ?? "div",
+}), S = () => {
+  const { config: c } = m(), o = ({ schema: n, data: e, onUpdate: t }) => {
+    var f;
+    const r = c.components[n.component];
+    return console.log("component schema", r), l(
+      r ?? "div",
       (() => {
-        const t = n.config;
-        if (t && e) {
-          const u = t.key, d = (g) => {
-            if (r)
-              return r(u, g);
+        const s = n.config;
+        if (s && e) {
+          const u = s.key, g = (d) => {
+            if (t)
+              return t(u, d);
           };
-          return { ...n.props, modelValue: e[u], "onUpdate:modelValue": d };
+          return { ...n.props, modelValue: e[u], "onUpdate:modelValue": g };
         }
         return n.props;
       })() || {},
-      n.slots ? n.slots : (p = n.children) == null ? void 0 : p.map((t) => o({ schema: t, data: e, onUpdate: r }))
+      n.slots ? n.slots : (f = n.children) == null ? void 0 : f.map((s) => o({ schema: s, data: e, onUpdate: t }))
     );
   };
   return {
-    setSchema: ({ schema: n, data: e, onUpdate: r }) => Array.isArray(n) ? l(
+    setSchema: ({ schema: n, data: e, onUpdate: t }) => Array.isArray(n) ? l(
       "div",
       {},
-      n.map((c) => o({ schema: c, data: e, onUpdate: r }))
-    ) : o({ schema: n, data: e, onUpdate: r })
+      n.map((r) => o({ schema: r, data: e, onUpdate: t }))
+    ) : o({ schema: n, data: e, onUpdate: t })
   };
 }, v = {
-  install(s, o) {
-    const { setConfig: f } = m();
-    o && f(o);
+  install(c, o) {
+    const { setConfig: p } = m();
+    o && p(o);
   }
 };
 export {
   v as default,
   m as useConfig,
-  a as useRender
+  S as useRender
 };
