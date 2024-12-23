@@ -3,23 +3,7 @@ import { IConfig } from '../types/config.type'
 import { IFunction } from '../types/function.type'
 
 const config = reactive<IConfig>({
-  components: {
-    BUTTON: null,
-    CHECKBOX: null,
-    DATEPICKER: null,
-    INPUT: null,
-    NUMBER: null,
-    RADIO: null,
-    RANGE: null,
-    SELECT: null,
-    SWITCH: null,
-    TEXT: null,
-    TEXTAREA: null,
-    TIMEPICKER: null,
-    UPLOAD: null,
-    WYSIWYG: null,
-    TABLE: null
-  }
+  components: {}
 })
 
 export const useConfig = () => {

@@ -1,22 +1,10 @@
 import type { Component } from 'vue'
 
 export type ISchema = {
+  id: string
   type: "FIELD" | "FIELD-ARRAY" | "GROUP" | "VIEW"
-  component: "INPUT" 
-  | "SELECT"
-  | "BUTTON"
-  | "CHECKBOX" 
-  | "RADIO" 
-  | "TEXTAREA" 
-  | "DATEPICKER"
-  | "TIMEPICKER"
-  | "RANGE"
-  | "SWITCH"
-  | "UPLOAD"
-  | "WYSIWYG"
-  | "TEXT"
-  | "NUMBER"
-  | "TABLE"
+  // component typeof key in typeof config compoent
+  component: string
   props?: Record<string, any>
   slots?: any
   config?: {

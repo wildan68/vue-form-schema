@@ -1,60 +1,44 @@
-import { reactive as C, h as p } from "vue";
-const s = C({
-  components: {
-    BUTTON: null,
-    CHECKBOX: null,
-    DATEPICKER: null,
-    INPUT: null,
-    NUMBER: null,
-    RADIO: null,
-    RANGE: null,
-    SELECT: null,
-    SWITCH: null,
-    TEXT: null,
-    TEXTAREA: null,
-    TIMEPICKER: null,
-    UPLOAD: null,
-    WYSIWYG: null,
-    TABLE: null
-  }
-}), E = () => ({
-  setConfig: ({ components: o }) => s.components = { ...s.components, ...o },
-  config: s
-}), g = () => {
-  const { config: t } = E(), o = ({ schema: n, data: l, onUpdate: e }) => {
-    var i;
-    const u = t.components[n.component];
-    return p(
-      u ?? "div",
+import { reactive as y, h as l } from "vue";
+const i = y({
+  components: {}
+}), m = () => ({
+  setConfig: ({ components: o }) => i.components = { ...i.components, ...o },
+  config: i
+}), a = () => {
+  const { config: s } = m(), o = ({ schema: n, data: e, onUpdate: r }) => {
+    var p;
+    const c = s.components[n.component];
+    return l(
+      c ?? "div",
       (() => {
-        const r = n.config;
-        if (r && l) {
-          const f = r.key, T = (m) => {
-            if (e)
-              return e(f, m);
+        const t = n.config;
+        if (t && e) {
+          const u = t.key, d = (g) => {
+            if (r)
+              return r(u, g);
           };
-          return { ...n.props, modelValue: l[f], "onUpdate:modelValue": T };
+          return { ...n.props, modelValue: e[u], "onUpdate:modelValue": d };
         }
         return n.props;
       })() || {},
-      n.slots ? n.slots : (i = n.children) == null ? void 0 : i.map((r) => o({ schema: r, data: l, onUpdate: e }))
+      n.slots ? n.slots : (p = n.children) == null ? void 0 : p.map((t) => o({ schema: t, data: e, onUpdate: r }))
     );
   };
   return {
-    setSchema: ({ schema: n, data: l, onUpdate: e }) => Array.isArray(n) ? p(
+    setSchema: ({ schema: n, data: e, onUpdate: r }) => Array.isArray(n) ? l(
       "div",
       {},
-      n.map((u) => o({ schema: u, data: l, onUpdate: e }))
-    ) : o({ schema: n, data: l, onUpdate: e })
+      n.map((c) => o({ schema: c, data: e, onUpdate: r }))
+    ) : o({ schema: n, data: e, onUpdate: r })
   };
-}, I = {
-  install(t, o) {
-    const { setConfig: c } = E();
-    o && c(o);
+}, v = {
+  install(s, o) {
+    const { setConfig: f } = m();
+    o && f(o);
   }
 };
 export {
-  I as default,
-  E as useConfig,
-  g as useRender
+  v as default,
+  m as useConfig,
+  a as useRender
 };
